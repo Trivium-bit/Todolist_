@@ -3,11 +3,11 @@ import {TodoListType} from '../App';
 import {
     ActionType,
     RemoveTodoListAC,
-    todoListsReducer,
+    todolistsReducer,
     AddTodoListAC,
     ChangeTodoListTitleAC,
     ChangeTodoListFilterAC
-} from './Todolists-reducer';
+} from './todolists-reducer';
 
 export type FilterValuesType = "all" | "active" | "completed"
 
@@ -20,7 +20,7 @@ test('correct todolist should be removed', () => {
         {id: todolistId2, title: "What to buy", filter: "all"}
     ]
 
-    const endState = todoListsReducer(startState, RemoveTodoListAC(todolistId1))
+    const endState = todolistsReducer(startState, RemoveTodoListAC(todolistId1))
 
     expect(endState.length).toBe(1);
     expect(endState[0].id).toBe(todolistId2);
@@ -38,7 +38,7 @@ test('correct todolist should be added', () => {
         {id: todolistId2, title: "What to buy", filter: "all"}
     ]
 
-    const endState = todoListsReducer(startState, AddTodoListAC(newTodolistTitle))
+    const endState = todolistsReducer(startState, AddTodoListAC(newTodolistTitle))
 
     expect(endState.length).toBe(3);
     expect(endState[2].title).toBe(newTodolistTitle);
@@ -61,7 +61,7 @@ test('correct todolist should change its name', () => {
         title: newTodoListTitle
     };
 
-    const endState = todoListsReducer(startState, ChangeTodoListTitleAC(todoListId2, newTodoListTitle));
+    const endState = todolistsReducer(startState, ChangeTodoListTitleAC(todoListId2, newTodoListTitle));
 
     expect(endState[0].title).toBe("What to learn");
     expect(endState[1].title).toBe(newTodoListTitle);
@@ -85,7 +85,7 @@ test('correct filter of todolist should be changed', () => {
         filter: newFilter
     };
 
-    const endState = todoListsReducer(startState, ChangeTodoListFilterAC(todolistId2, newFilter));
+    const endState = todolistsReducer(startState, ChangeTodoListFilterAC(todolistId2, newFilter));
 
     expect(endState[0].filter).toBe("all");
     expect(endState[1].filter).toBe(newFilter);
