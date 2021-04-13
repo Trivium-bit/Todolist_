@@ -1,3 +1,4 @@
+/*
 import React, {useReducer, useState} from 'react';
 import './App.css';
 import {TodoList} from "./TodoList";
@@ -157,3 +158,4 @@ function AppWithRedux() {
 
 export default AppWithRedux;
 
+*/
