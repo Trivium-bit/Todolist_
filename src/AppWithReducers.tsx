@@ -7,10 +7,10 @@ import {AppBar, IconButton, Typography, Button, Toolbar, Container, Grid, Paper}
 import {Menu} from "@material-ui/icons";
 import {
     todolistsReducer,
-    ChangeTodoListFilterAC,
-    RemoveTodoListAC,
-    AddTodoListAC,
-    ChangeTodoListTitleAC
+    changeTodoListFilterAC,
+    removeTodoListAC,
+    addTodoListAC,
+    changeTodoListTitleAC
 } from "./state/todolists-reducer";
 import {addTaskAC, removeTaskAC, tasksReducer, changeTaskStatusAC, changeTaskTitleAC} from "./state/task-reducer";
 
@@ -33,7 +33,7 @@ export type TaskStateType = {
     [key: string]: Array<TaskType>
 }
 
-function AppWithReducers() {
+function AppWithRedux() {
 /////////BLL (state и функции):
     const todoListID_1 = v1()
     const todoListID_2 = v1()
@@ -61,44 +61,42 @@ function AppWithReducers() {
     }
 
     function addTask(title: string, todolistId: string) {
-        const newTask: TaskType = {
-            id: v1(),
-            title: title,
-            isDone: false
-        }
         let action = addTaskAC(title, todolistId)
         dispatchToTasks(action)
     }
     }
 
-    function changeTaskStatus(taskId: string, isDone: boolean, todolistId: string) {
-        let action = changeTaskStatusAC(taskId, isDone, todolistId)
+    function changeTaskStatus(id: string, isDone: boolean, todolistId: string) {
+        let action = changeTaskStatusAC(id, isDone, todolistId)
         dispatchToTasks(action)
         }
 
 
-    function changeTaskTitle(taskId: string, title: string, todolistId: string) {
-        let action = changeTaskTitleAC(taskId, title, todolistId)
+    function changeTaskTitle(id: string, newTitle: string, todolistId: string) {
+        let action = changeTaskTitleAC(id, newTitle, todolistId)
         dispatchToTasks(action)
     }
 
     function changeTodoListFilter(id: string, filter: FilterValuesType) {
-        let action = ChangeTodoListFilterAC(id, filter)
+        let action = changeTodoListFilterAC(id, filter)
         dispatchTodolists(action)
     }
 
     function removeTodoList(id: string) {
-        let action = RemoveTodoListAC(id)
+        let action = removeTodoListAC(id)
         dispatchTodolists(action)
+        dispatchToTasks(action)
+
     }
 
     function addTodoList(title: string) {
-        let action = AddTodoListAC(title)
+        let action = addTodoListAC(title)
         dispatchTodolists(action)
+        dispatchToTasks(action)
     }
 
     function changeTodoListTitle(id: string, title: string) {
-        let action = ChangeTodoListTitleAC(id, title)
+        let action = changeTodoListTitleAC(id, title)
         dispatchTodolists(action)
     }
 
@@ -157,5 +155,5 @@ function AppWithReducers() {
     )
 }
 
-export default AppWithReducers;
+export default AppWithRedux;
 
