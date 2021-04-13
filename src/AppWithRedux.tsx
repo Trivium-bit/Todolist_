@@ -5,12 +5,17 @@ import {v1} from "uuid";
 import {AddItemForm} from "./AddItemForm";
 import {AppBar, IconButton, Typography, Button, Toolbar, Container, Grid, Paper} from '@material-ui/core';
 import {Menu} from "@material-ui/icons";
-import {todolistsReducer, changeTodoListFilterAC, removeTodoListAC, addTodoListAC, changeTodoListTitleAC} from "./state/todolists-reducer";
+import {
+    todolistsReducer,
+    changeTodoListFilterAC,
+    removeTodoListAC,
+    addTodoListAC,
+    changeTodoListTitleAC
+} from "./state/todolists-reducer";
 import {addTaskAC, removeTaskAC, tasksReducer, changeTaskStatusAC, changeTaskTitleAC} from "./state/task-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import { AppRootStateType } from './state/store';
+import {AppRootStateType} from './state/store';
 
-////////////// Типизация
 export type TaskType = {
     id: string
     title: string
@@ -51,13 +56,14 @@ function AppWithRedux() {
     //         {id: v1(), title: "Burger", isDone: true}
     //     ]
     // });
+
     let todolists = useSelector<AppRootStateType, TodoListType[]>(state => state.todolists)
     let tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
 
     let dispatch = useDispatch()
 
-    function removeTask(id: string, todolistId: string) {
-      let action = removeTaskAC(id, todolistId)
+    function removeTask(taskID: string, todolistId: string) {
+        let action = removeTaskAC(taskID, todolistId)
         dispatch(action)
     }
 
@@ -65,12 +71,12 @@ function AppWithRedux() {
         let action = addTaskAC(title, todolistId)
         dispatch(action)
     }
-    }
 
-    function changeTaskStatus(id: string, isDone: boolean, todolistId: string) {
-        let action = changeTaskStatusAC(id, isDone, todolistId)
+
+    function changeTaskStatus(taskId: string, isDone: boolean, todolistId: string) {
+        let action = changeTaskStatusAC(taskId, isDone, todolistId)
         dispatch(action)
-        }
+    }
 
 
     function changeTaskTitle(id: string, newTitle: string, todolistId: string) {
@@ -78,7 +84,7 @@ function AppWithRedux() {
         dispatch(action)
     }
 
-    function changeTodoListFilter(id: string, filter: FilterValuesType) {
+    function changeTodoListFilter(filter: FilterValuesType, id: string) {
         let action = changeTodoListFilterAC(id, filter)
         dispatch(action)
     }
@@ -86,7 +92,7 @@ function AppWithRedux() {
     function removeTodoList(id: string) {
         let action = removeTodoListAC(id)
         dispatch(action)
-        }
+    }
 
     function addTodoList(title: string) {
         let action = addTodoListAC(title)
@@ -100,7 +106,7 @@ function AppWithRedux() {
 
     /////////////// UI
 
-    const todoListComponents = todoLists.map(tl => {
+    const todoListComponents = todolists.map(tl => {
         let taskForTodoList = tasks[tl.id]
         if (tl.filter === "active") {
             taskForTodoList = taskForTodoList.filter(t => t.isDone === false)
