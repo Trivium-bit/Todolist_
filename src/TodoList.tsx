@@ -1,5 +1,5 @@
 import {FilterValuesType, TaskType} from "./App";
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useCallback} from "react";
 import {AddItemForm} from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
 import {Button, Checkbox, IconButton} from "@material-ui/core";
@@ -19,26 +19,26 @@ type TodoListPropsType = {
     changeTodoListTitle: (newTitle: string, todoListID: string) => void
 }
 
-export function TodoList(props: TodoListPropsType) {
-
-    const addTask = (title: string) => props.addTask(title, props.todoListID)
-
-    const setAllFilter = () => {
+export const TodoList = React.memo((props: TodoListPropsType) => {
+    console.log("Todolist ")
+    const addTask = useCallback((title: string) => {
+        props.addTask(title, props.todoListID) },[props.todoListID])
+    const setAllFilter = useCallback ( () => {
         props.changeTodoListFilter("all", props.todoListID)
-    }
-    const setActiveFilter = () => {
+    },[props.todoListID])
+    const setActiveFilter = useCallback ( () =>  {
         props.changeTodoListFilter("active", props.todoListID)
-    }
-    const setCompletedFilter = () => {
+    },[props.todoListID])
+    const setCompletedFilter = useCallback(() => {
         props.changeTodoListFilter("completed", props.todoListID)
-    }
+    },[props.todoListID])
+
     const removeTodoList = () => {
         props.removeTodoList(props.todoListID)
     }
-    const changeTodoListTitle = (title: string) => props.changeTodoListTitle(title, props.todoListID)
+    const changeTodoListTitle = useCallback((title: string) => {props.changeTodoListTitle(title, props.todoListID)},[props.todoListID])
 
-
-    const tasks = props.tasks.map(task => {
+        const tasks = props.tasks.map(task => {
         const removeTask = () => props.removeTask(task.id, props.todoListID)
         const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) =>
             props.changeTaskStatus(task.id, e.currentTarget.checked, props.todoListID)
@@ -99,4 +99,4 @@ export function TodoList(props: TodoListPropsType) {
         </div>
 
     );
-}
+})
