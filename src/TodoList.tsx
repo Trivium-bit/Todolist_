@@ -97,6 +97,5 @@ export const TodoList = React.memo((props: TodoListPropsType) => {
                 </Button>
             </div>
         </div>
-
     );
 })
