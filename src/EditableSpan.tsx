@@ -40,7 +40,6 @@ const EditableSpan = React.memo((props: EditableSpanPropsType) => {
                 onKeyPress={onEnter}
                 variant={"standard"}
                 color={"secondary"}
-
             />
             : <span onDoubleClick={onEditMode}>{props.title}</span>
     )
