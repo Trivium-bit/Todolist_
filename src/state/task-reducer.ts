@@ -7,16 +7,19 @@ export type RemoveTaskActionType = {
     taskId: string
     todolistId: string
 }
+
 export type AddTaskActionType = {
     type: 'ADD-TASK'
     title: string
     todolistId: string
 }
+
 export type ChangeTaskStatusActionType = {
     type: 'CHANGE-STATUS_TASK'
     taskId: string
     isDone: boolean
     todolistId: string
+
 }
 export type changeTaskTitleACActionType = {
     type: 'CHANGE-STATUS_TITLE'
