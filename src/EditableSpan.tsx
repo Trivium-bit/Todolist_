@@ -5,7 +5,6 @@ type EditableSpanPropsType = {
     title: string
     changeTitle: (newTitle: string) => void
 }
-
 const EditableSpan = React.memo((props: EditableSpanPropsType) => {
     const [editMode, setEditMode] = useState<boolean>(false)
     const [title, setTitle] = useState<string>(props.title)

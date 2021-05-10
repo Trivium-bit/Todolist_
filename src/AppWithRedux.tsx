@@ -72,17 +72,14 @@ function AppWithRedux() {
         let action = addTaskAC(title, todolistId)
         dispatch(action)
     },[dispatch])
-
     const changeTaskStatus = useCallback((taskId: string, isDone: boolean, todolistId: string) => {
         let action = changeTaskStatusAC(taskId, isDone, todolistId)
         dispatch(action)
     },[dispatch])
-
     const changeTaskTitle = useCallback((id: string, newTitle: string, todolistId: string) => {
         let action = changeTaskTitleAC(id, newTitle, todolistId)
         dispatch(action)
     },[dispatch])
-
     const changeTodoListFilter = useCallback((filter: FilterValuesType, id: string) => {
         let action = changeTodoListFilterAC(id, filter)
         dispatch(action)
