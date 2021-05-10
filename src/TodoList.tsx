@@ -24,6 +24,11 @@ export const TodoList = React.memo((props: TodoListPropsType) => {
     console.log("Todolist ")
     const addTask = useCallback((title: string) => {
         props.addTask(title, props.todoListID) },[props.todoListID])
+    const removeTodoList = () => {
+        props.removeTodoList(props.todoListID)
+    }
+    const changeTodoListTitle = useCallback((title: string) => {props.changeTodoListTitle(title, props.todoListID)},[props.todoListID])
+
     const setAllFilter = useCallback ( () => {
         props.changeTodoListFilter("all", props.todoListID)
     },[props.todoListID])
@@ -33,11 +38,15 @@ export const TodoList = React.memo((props: TodoListPropsType) => {
     const setCompletedFilter = useCallback(() => {
         props.changeTodoListFilter("completed", props.todoListID)
     },[props.todoListID])
-    const removeTodoList = () => {
-        props.removeTodoList(props.todoListID)
-    }
-    const changeTodoListTitle = useCallback((title: string) => {props.changeTodoListTitle(title, props.todoListID)},[props.todoListID])
 
+    let allTasksForTodolist = props.tasks;
+    let taskForTodoList = allTasksForTodolist
+    if (props.filter === "active") {
+        taskForTodoList = allTasksForTodolist.filter(t => t.isDone === false)
+    }
+    if (props.filter === "completed") {
+        taskForTodoList = allTasksForTodolist.filter(t => t.isDone === true)
+    }
         const tasks = props.tasks.map(task => {
         const removeTask = () => props.removeTask(task.id, props.todoListID)
         const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) =>
@@ -45,14 +54,7 @@ export const TodoList = React.memo((props: TodoListPropsType) => {
         const changeTaskTitle = (newTitle: string) =>
             props.changeTaskTitle(task.id, newTitle, props.todoListID)
 
-            let allTasksForTodolist = props.tasks;
-            let taskForTodoList = allTasksForTodolist
-            if (props.filter === "active") {
-                taskForTodoList = allTasksForTodolist.filter(t => t.isDone === false)
-            }
-            if (props.filter === "completed") {
-                taskForTodoList = allTasksForTodolist.filter(t => t.isDone === true)
-            }
+
         return (
             <li key={task.id} className={task.isDone ? "is-done" : ""}>
                 <Checkbox

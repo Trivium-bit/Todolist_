@@ -60,7 +60,6 @@ function AppWithRedux() {
 
     let todolists = useSelector<AppRootStateType, TodoListType[]>(state => state.todolists)
     let tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
-
     let dispatch = useDispatch()
 
     const removeTask = useCallback((taskID: string, todolistId: string) => {
@@ -101,20 +100,13 @@ function AppWithRedux() {
     },[dispatch])
 
     const todoListComponents = todolists.map(tl => {
-        let allTasksForTodolist = tasks[tl.id];
-        let taskForTodoList = allTasksForTodolist
-        if (tl.filter === "active") {
-            taskForTodoList = allTasksForTodolist.filter(t => t.isDone === false)
-        }
-        if (tl.filter === "completed") {
-            taskForTodoList = allTasksForTodolist.filter(t => t.isDone === true)
-        }
+
         return (
             <Grid item key={tl.id}>
                 <Paper elevation={3} style={{padding: "20px"}}>
                     <TodoList
                         title={tl.title}
-                        tasks={allTasksForTodolist}
+                        tasks={tasks[tl.id]}
                         todoListID={tl.id}
                         filter={tl.filter}
                         removeTask={removeTask}
