@@ -57,7 +57,6 @@ export const tasksReducer = (state = initialState, action: ActionType): TaskStat
                         : task)
             }
         }
-
         case 'CHANGE-STATUS_TITLE': {
             return {
                 ...state,

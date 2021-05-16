@@ -5,6 +5,7 @@ type EditableSpanPropsType = {
     title: string
     changeTitle: (newTitle: string) => void
 }
+
 const EditableSpan = React.memo((props: EditableSpanPropsType) => {
     console.log("EditableSpan called")
     const [editMode, setEditMode] = useState<boolean>(false)
@@ -14,6 +15,7 @@ const EditableSpan = React.memo((props: EditableSpanPropsType) => {
         setEditMode(false)
         props.changeTitle(title)
     }
+
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
