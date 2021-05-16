@@ -66,7 +66,6 @@ export const tasksReducer = (state = initialState, action: ActionType): TaskStat
                         : task)
             }
         }
-
         case 'ADD-TODOLIST':
             let todolistId = action.todolistId
             return {...state, [todolistId]: []}
