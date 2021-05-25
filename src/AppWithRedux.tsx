@@ -15,7 +15,6 @@ import {
 import {addTaskAC, removeTaskAC, tasksReducer, changeTaskStatusAC, changeTaskTitleAC} from "./state/task-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from './state/store';
-/////
 
 export type TaskType = {
     id: string
