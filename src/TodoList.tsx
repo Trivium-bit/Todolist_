@@ -49,7 +49,6 @@ export const TodoList = React.memo((props: TodoListPropsType) => {
         const changeTaskTitle = (newTitle: string) =>
             props.changeTaskTitle(task.id, newTitle, props.todoListID)
 
-
         return (
             <li key={task.id} className={task.isDone ? "is-done" : ""}>
                 <Checkbox
