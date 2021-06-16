@@ -35,6 +35,8 @@ export const TodoList = React.memo((props: TodoListPropsType) => {
         props.changeTodoListFilter("completed", props.todoListID)
     },[props.todoListID])
 
+    /// не работает фильтр тасок
+
     let tasksForTodoList = props.tasks;
     if (props.filter === "active") {
         tasksForTodoList = props.tasks.filter(t => t.isDone === false)
