@@ -27,14 +27,7 @@ const EditableSpan = React.memo((props: EditableSpanPropsType) => {
     }
     return (
         editMode
-            /* ? <input
-                 value={title}
-                 autoFocus={true}
-                 onChange={changeTitle}
-                 onBlur={offEditMode}
-                 onKeyPress={onEnter}
-             />*/
-            ? <TextField
+                ? <TextField
                 value={title}
                 autoFocus
                 onChange={changeTitle}
