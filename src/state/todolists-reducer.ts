@@ -11,16 +11,19 @@ export type AddTodoListActionType = {
     todolistId: string
 
 }
+
 export type ChangeTodoListTitleActionType = {
     type: 'CHANGE-TODOLIST-TITLE'
     id: string
     title: string
 }
+
 export type ChangeTodoListFilterActionType = {
     type: 'CHANGE-TODOLIST-FILTER'
     id: string
     filter: FilterValuesType
 }
+
 let initialState: Array<TodoListType> = []
 
 export type ActionType =
