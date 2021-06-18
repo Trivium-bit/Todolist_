@@ -48,6 +48,7 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
                 label={"Title"}
                 error={error}
                 helperText={error && "Title is required!"}
+
             />
             {/*<button onClick={addItem}>+</button>*/}
             <IconButton onClick={addItem}>
