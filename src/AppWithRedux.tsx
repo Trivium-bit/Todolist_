@@ -56,6 +56,7 @@ function AppWithRedux() {
     //     ]
     // });
 
+
     let todolists = useSelector<AppRootStateType, TodoListType[]>(state => state.todolists)
     let tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
     let dispatch = useDispatch()
@@ -145,4 +146,5 @@ function AppWithRedux() {
 }
 
 export default AppWithRedux;
+
 
