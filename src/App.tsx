@@ -6,7 +6,6 @@ import {AddItemForm} from "./AddItemForm";
 import {AppBar, IconButton, Typography, Button, Toolbar, Container, Grid, Paper} from '@material-ui/core';
 import {Menu} from "@material-ui/icons";
 
-////////////// Типизация
 
 export type TaskType = {
     id: string
@@ -17,13 +16,11 @@ export type TaskType = {
 
 export type FilterValuesType = "all" | "active" | "completed"
 
-
 export type TodoListType = {
     id: string
     title: string
     filter: FilterValuesType
 }
-
 
 export type TaskStateType = {
     [key: string]: Array<TaskType>
@@ -112,8 +109,6 @@ function App() {
             setTodoLists([...todoLists])
         }
     }
-
-    /////////////// UI
 
     const todoListComponents = todoLists.map(tl => {
         let taskForTodoList = tasks[tl.id]
