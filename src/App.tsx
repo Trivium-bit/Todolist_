@@ -6,7 +6,7 @@ import {AddItemForm} from "./AddItemForm";
 import {AppBar, IconButton, Typography, Button, Toolbar, Container, Grid, Paper} from '@material-ui/core';
 import {Menu} from "@material-ui/icons";
 
-////////////// Типизация
+
 export type TaskType = {
     id: string
     title: string
@@ -26,7 +26,7 @@ export type TaskStateType = {
 }
 
 function App() {
-/////////BLL (state и функции):
+
     const todoListID_1 = v1()
     const todoListID_2 = v1()
     const [todoLists, setTodoLists] = useState<Array<TodoListType>>([
