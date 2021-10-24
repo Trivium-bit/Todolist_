@@ -1,42 +1,30 @@
-import React, {useState, KeyboardEvent, ChangeEvent} from "react";
+import React, { ChangeEvent, useState } from 'react';
 import {TextField} from "@material-ui/core";
 
 type EditableSpanPropsType = {
-    title: string
-    changeTitle: (newTitle: string) => void
+  value: string
+  onChange: (newValue: string) => void
 }
 
-const EditableSpan = React.memo((props: EditableSpanPropsType) => {
-    console.log("EditableSpan called")
-    const [editMode, setEditMode] = useState<boolean>(false)
-    const [title, setTitle] = useState<string>(props.title)
-    const onEditMode = () => setEditMode(true)
-    const offEditMode = () => {
-        setEditMode(false)
-        props.changeTitle(title)
-    }
+export function EditableSpan(props: EditableSpanPropsType) {
 
-    const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-    }
-    const onEnter = (e: KeyboardEvent) => {
-        if (e.key === 'Enter') {
-            setEditMode(!editMode)
-            props.changeTitle(title)
-        }
-    }
-    return (
-        editMode
-                ? <TextField
-                value={title}
-                autoFocus
-                onChange={changeTitle}
-                onBlur={offEditMode}
-                onKeyPress={onEnter}
-                variant={"standard"}
-                color={"secondary"}
-            />
-            : <span onDoubleClick={onEditMode}>{props.title}</span>
-    )
-})
-export default EditableSpan
+  let [editMode, setEditMode] = useState<boolean>(false)
+  const onEditMode = () => {
+    setEditMode(true);
+    setTitle(props.value);
+  }
+  const offEditMode = () => {
+    setEditMode(false);
+    props.onChange(title)
+  }
+
+let [title, setTitle] = useState<string>("")
+
+  const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {setTitle(e.currentTarget.value)}
+
+  return editMode
+    ?  <TextField value={title} onChange={onChangeTitleHandler} autoFocus onBlur={offEditMode} variant="outlined"/>
+    : <span onDoubleClick={onEditMode}>{props.value}</span>
+
+}
+
