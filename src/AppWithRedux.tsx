@@ -30,24 +30,6 @@ export type TasksStateType = {
 
 function AppWithRedux() {
 
-  let todolistId1 = v1();
-  let todolistId2 = v1();
-
-  // let [todolists, dispatchToTodolist] = useReducer(todolistsReducer,[
-  //   { id: todolistId1, title: "What to Learn", filter: "all" },
-  //   { id: todolistId2, title: "What to Buy", filter: "all" }
-  // ])
-
-  // let [tasks, dispatchToTasks] = useReducer(tasksReducer,{
-  //   [todolistId1]: [
-  //     { id: v1(), title: "HTML & CSS", isDone: true },
-  //     { id: v1(), title: "React", isDone: true }
-  //   ],
-  //   [todolistId2]: [
-  //     { id: v1(), title: "Bear", isDone: true },
-  //     { id: v1(), title: "Pizza", isDone: true }
-  //   ]
-  // })
 
   const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
   const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
