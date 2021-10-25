@@ -6,7 +6,8 @@ type EditableSpanPropsType = {
   onChange: (newValue: string) => void
 }
 
-export function EditableSpan(props: EditableSpanPropsType) {
+export const EditableSpan = React.memo(function(props: EditableSpanPropsType) {
+  console.log("EditableSpan");
 
   let [editMode, setEditMode] = useState<boolean>(false)
   const onEditMode = () => {
@@ -26,5 +27,5 @@ let [title, setTitle] = useState<string>("")
     ?  <TextField value={title} onChange={onChangeTitleHandler} autoFocus onBlur={offEditMode} variant="outlined"/>
     : <span onDoubleClick={onEditMode}>{props.value}</span>
 
-}
+})
 
