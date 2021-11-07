@@ -6,7 +6,7 @@ import {Delete} from '@material-ui/icons'
 
 
 
-type TaskPropsType = {
+export type TaskPropsType = {
     removeTask: (id: string, todolistId: string) => void
     changeStatus: (id: string, isDone: boolean, todolistId: string) => void
     changeTaskTitle: (id: string, newTitle: string, todolistId: string) => void
