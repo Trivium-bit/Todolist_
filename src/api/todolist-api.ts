@@ -30,8 +30,8 @@ type GetTasksResponse = {
     items: TaskType[]
 }
 type DeleteTasksResponse = {
-    resultCode: 1
-    messages: ['Something wrong']
+    resultCode: number
+    messages: Array<string>
     data: {}
 }
 
