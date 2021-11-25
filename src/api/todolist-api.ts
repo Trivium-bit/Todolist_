@@ -1,11 +1,14 @@
 import axios from 'axios'
 import { title } from 'process'
 
-type TodolistType = {
+export type FilterValuesType = "all" | "active" | "completed"
+
+export type TodolistType = {
     id: string
     addedDate: string
     order: number
     title: string
+    filter: FilterValuesType
 }
 type ResponseType<Data = {}> = {  // (по умолчанию) <Data={}> если Data не передавать то он пустой объект
     resultCode: number
@@ -24,6 +27,7 @@ export type TaskType = {
     todoListId: string
     order: number
     addedDate: string
+    isDone: boolean
 }
 export type UpdateTaskModelType = {
     title: string
@@ -55,8 +59,8 @@ const instance = axios.create({
     ...settings
 })
 
-export const todolistAPI = {
-    getTodolist() {
+export const todolistsAPI = {
+    getTodolists() {
         return instance.get<Array<TodolistType>>(`todo-lists`);
     },
     createTodolist(title: string) {
