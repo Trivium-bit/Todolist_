@@ -3,7 +3,7 @@ import { title } from 'process'
 
 export type FilterValuesType = "all" | "active" | "completed"
 
-type TodolistType = {
+export type TodolistType = {
     id: string
     addedDate: string
     order: number
@@ -27,6 +27,7 @@ export type TaskType = {
     todoListId: string
     order: number
     addedDate: string
+    isDone: boolean
 }
 export type UpdateTaskModelType = {
     title: string
