@@ -6,6 +6,7 @@ import { AddItemForm } from './AddItemForm';
 import {AppBar, IconButton, Typography, Button, Toolbar, Container, Grid, Paper} from '@material-ui/core';
 import {Menu} from "@material-ui/icons";
 
+
 export type FilterValuesType = "all" | "active" | "completed"
 
 export type TodolistType = {
@@ -25,7 +26,6 @@ export type TasksStateType = {
 }
 
 function App() {
-
 
   let todolistId1 = v1();
   let todolistId2 = v1();
