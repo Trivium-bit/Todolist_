@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useReducer, useCallback } from 'react';
-import { Todolist } from './Todolist'
+import { Todolist } from './TodoList'
 import './App.css';
 import { v1 } from 'uuid';
 import { AddItemForm } from './AddItemForm';
