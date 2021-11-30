@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { title } from 'process'
 
 export type FilterValuesType = "all" | "active" | "completed"
 
@@ -8,8 +7,24 @@ export type TodolistType = {
     addedDate: string
     order: number
     title: string
-    filter: FilterValuesType
 }
+
+export type TodolistDomainType = TodolistType & {filter: FilterValuesType};
+
+export enum TaskStatuses {
+    New = 0,
+    InProgress = 1,
+    Completed = 2,
+    Draft = 3
+}
+export enum TaskPriorities {
+    Low = 0,
+    Midlle = 1,
+    Hi = 2,
+    Urgently = 3,
+    Later = 4
+}
+
 type ResponseType<Data = {}> = {  // (по умолчанию) <Data={}> если Data не передавать то он пустой объект
     resultCode: number
     messages: Array<string>
@@ -18,16 +33,14 @@ type ResponseType<Data = {}> = {  // (по умолчанию) <Data={}> есл�
 export type TaskType = {
     description: string
     title: string
-    completed: boolean
-    status: number
-    priority: number
+    status: TaskStatuses
+    priority: TaskPriorities
     startDate: string
     deadline: string
     id: string
     todoListId: string
     order: number
     addedDate: string
-    isDone: boolean
 }
 export type UpdateTaskModelType = {
     title: string
