@@ -1,6 +1,5 @@
 import React, {ChangeEvent, useCallback, useEffect} from 'react';
-import { TaskType } from './App'
-import { FilterValuesType } from './App'
+import { TaskStatuses, TaskType, FilterValuesType } from './api/todolist-api'
 import {AddItemForm} from './AddItemForm'
 import {EditableSpan} from './EditableSpan'
 import {IconButton, Checkbox, Button} from '@material-ui/core'
@@ -17,7 +16,7 @@ type PropsType = {
     addTask: (title: string, todolistId: string) => void
     removeTask: (id: string, todolistId: string) => void
     changeFilter: (value: FilterValuesType, todolistId: string) => void
-    changeStatus: (id: string, isDone: boolean, todolistId: string) => void
+    changeStatus: (id: string, status: TaskStatuses, todolistId: string) => void
     changeTaskTitle: (id: string, newTitle: string, todolistId: string) => void
     changeTodolistTitle: (todolistId: string ,newTitle: string) => void
     removeTodolist: (todolistId: string) => void
@@ -69,7 +68,7 @@ export const Todolist = React.memo(function(props: PropsType) {
             }
         </div>
         <div>
-            <Button variant={props.filter === "all" ? "outlined": "text"} onClick={onAllClickHandler} color={'default'}>All</Button>
+            <Button variant={props.filter === "all" ? "outlined" : "text"} onClick={onAllClickHandler} color={'default'}>All</Button>
             <Button variant={props.filter === "active" ? "outlined": "text"} onClick={onActiveClickHandler} color={'primary'}>Active</Button>
             <Button variant={props.filter === "completed" ? "outlined": "text"} onClick={onCompletedHandler} color={'secondary'}>Completed</Button>
         </div>
