@@ -1,15 +1,10 @@
 import { TasksStateType } from '../AppWithRedux'
 import { v1 } from 'uuid';
 import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType} from './todolists-reducer'
-<<<<<<< HEAD
 import {TaskType, TaskStatuses, TaskPriorities} from './../api/todolist-api'
-import { Todolist } from '../Todolist';
-=======
-import {TaskPriorities, TaskType} from './../api/todolist-api'
->>>>>>> 7d0325a78d8211216bc9818cf9ef07808c1e8fc5
 import {Dispatch} from 'redux'
 import { todolistsAPI } from '../api/todolist-api';
-import { TaskStatuses } from '../api/todolist-api';
+
 
 
 export type RemoveTaskActionType = {
@@ -61,16 +56,12 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
             return copyState
         }
         case 'ADD-TASK': {
-<<<<<<< HEAD
-=======
             const stateCopy = {...state}
->>>>>>> 7d0325a78d8211216bc9818cf9ef07808c1e8fc5
             let newTask = {
                 id: v1(),
                 title: action.title,
                 description: '',
                 status: TaskStatuses.New,
-<<<<<<< HEAD
                 priority: TaskPriorities.Low,
                 startDate: '',
                 deadline: '',
@@ -79,20 +70,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
                 addedDate: ''
              };
             return { ...state, [action.todolistId]: [newTask, ...state[action.todolistId]] }
-=======
-                priority: TaskPriorities.Midlle,
-                startDate: '',
-                deadline: '',
-                todoListId: action.todolistId,
-                order: 0,
-                addedDate: ''};
-                const tasks = stateCopy[action.todolistId];
-                const newTasks = [newTask,...tasks];
-                stateCopy[action.todolistId] = newTasks;
-                return stateCopy
-           
->>>>>>> 7d0325a78d8211216bc9818cf9ef07808c1e8fc5
-        }
+        }     
         case 'CHANGE-TASK-STATUS': {
            let todolistTasks = state[action.todolistId];
            state[action.todolistId] = todolistTasks
