@@ -1,9 +1,5 @@
 import React, {ChangeEvent, useCallback, useEffect} from 'react';
-<<<<<<< HEAD
-import { TaskType, FilterValuesType, TaskStatuses} from './api/todolist-api'
-=======
 import { TaskStatuses, TaskType, FilterValuesType } from './api/todolist-api'
->>>>>>> 7d0325a78d8211216bc9818cf9ef07808c1e8fc5
 import {AddItemForm} from './AddItemForm'
 import {EditableSpan} from './EditableSpan'
 import {IconButton, Checkbox, Button} from '@material-ui/core'
