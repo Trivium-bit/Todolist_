@@ -4,7 +4,7 @@ import { AddTodolistAC, ChangeTodolistTitleAC, RemoveTodolistAC, ChangeTodolistF
 import { addTaskAC, removeTaskAC, changeTaskStatusAC, changeTaskTitleAC } from './state/tasks-reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { TaskType, TaskStatuses, TodolistDomainType, FilterValuesType} from './api/todolist-api';
-import {Todolist} from './Todolist'
+import {Todolist} from './TodoList'
 
 import {AddItemForm} from './AddItemForm';
 import {Menu} from "@material-ui/icons";
