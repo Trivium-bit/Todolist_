@@ -6,7 +6,10 @@ import {TaskType, TaskStatuses} from './api/todolist-api'
 import {EditableSpan} from './EditableSpan'
 import {IconButton, Checkbox} from '@material-ui/core'
 import {Delete} from '@material-ui/icons'
+<<<<<<< HEAD
 import { TaskStatuses, TaskType } from './api/todolist-api'
+=======
+>>>>>>> dev
 
 export type TaskPropsType = {
     removeTask: (id: string, todolistId: string) => void
@@ -29,10 +32,14 @@ export const Task = React.memo((props: TaskPropsType) => {
          color="primary"
          onChange={newIsDoneValue}
 <<<<<<< HEAD
+<<<<<<< HEAD
          checked={props.task.status}
 =======
          checked={props.task.status === TaskStatuses.Completed}
 >>>>>>> 7d0325a78d8211216bc9818cf9ef07808c1e8fc5
+=======
+         checked={props.task.status === TaskStatuses.Completed}
+>>>>>>> dev
          />
         <EditableSpan value={props.task.title} onChange={onChangeTitleHandler} />
         <IconButton onClick={onClickHandler}>
