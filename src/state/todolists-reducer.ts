@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import { TodolistType, FilterValuesType,TodolistDomainType } from './../api/todolist-api'
-=======
->>>>>>> 7d0325a78d8211216bc9818cf9ef07808c1e8fc5
+import { TodolistType, FilterValuesType,TodolistDomainType, todolistsAPI } from './../api/todolist-api'
 import { v1 } from 'uuid';
-import { TodolistType, FilterValuesType, todolistsAPI, TodolistDomainType} from './../api/todolist-api';
 import {Dispatch} from 'redux'
 
 export type RemoveTodolistActionType = {
@@ -47,11 +43,7 @@ export const todolistsReducer = (todolists: Array<TodolistDomainType> = initialS
             case 'REMOVE-TODOLIST':
             return todolists.filter(tl => tl.id !== action.id)   
         case 'ADD-TODOLIST':
-<<<<<<< HEAD
-            let newTodolist: TodolistDomainType = { id: action.todolistId, title: action.title, filter: 'all', addedDate: " ", order: 1 };
-=======
             let newTodolist: TodolistDomainType = { id: action.todolistId, title: action.title, filter: 'all',addedDate: '', order: 0 };
->>>>>>> 7d0325a78d8211216bc9818cf9ef07808c1e8fc5
             return [...todolists, newTodolist]
         case 'CHANGE-TODOLIST-TITLE':
             const todolist = todolists.find(tl => tl.id === action.id)

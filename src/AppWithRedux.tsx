@@ -5,7 +5,7 @@ import { addTaskAC, removeTaskAC, changeTaskStatusAC, changeTaskTitleAC } from '
 import { useDispatch, useSelector } from 'react-redux';
 import { TaskType, TaskStatuses, TodolistDomainType, FilterValuesType} from './api/todolist-api';
 import {Todolist} from './Todolist'
-import './App.css';
+
 import {AddItemForm} from './AddItemForm';
 import {Menu} from "@material-ui/icons";
 import { AppRootStateType } from './state/store';
