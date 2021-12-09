@@ -71,8 +71,8 @@ export const todolistsReducer = (todolists: Array<TodolistDomainType> = initialS
     }
 }
 
-export const RemoveTodolistAC = (newTodolistId: string): RemoveTodolistActionType => {
-    return { type: 'REMOVE-TODOLIST', id: newTodolistId }
+export const RemoveTodolistAC = (todolistId: string): RemoveTodolistActionType => {
+    return { type: 'REMOVE-TODOLIST', id: todolistId }
 }
 export const AddTodolistAC = (newTodolistTitle: string): AddTodolistActionType => {
     return { type: 'ADD-TODOLIST', title: newTodolistTitle, todolistId: v1() }
