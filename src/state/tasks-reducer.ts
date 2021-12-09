@@ -4,7 +4,7 @@ import { AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType
 import { TaskType, TaskStatuses, TaskPriorities } from './../api/todolist-api'
 import { Dispatch } from 'redux'
 import { todolistsAPI } from '../api/todolist-api';
-import {AppRootStateType} from './store'
+import { AppRootStateType } from './store'
 
 
 
@@ -115,20 +115,37 @@ export const changeTaskTitleAC = (id: string, title: string, todolistId: string)
 export const setTasksAC = (tasks: Array<TaskType>, todolistId: string): SetTasksActionType => {
     return { type: 'SET-TASKS', tasks, todolistId }
 }
-export const removeTaskTC = (id: string, todolistId: string) => (dispatch: Dispatch) => {
-    todolistsAPI.deleteTask(todolistId, id)
-        .then(res => {
-            const action = removeTaskAC(id, todolistId)
-            dispatch(action)
-        })
+
+export const fetchTasksTC = (todolistId: string) => {
+    return (dispatch: Dispatch) => {
+        todolistsAPI.getTasks(todolistId)
+            .then((res) => {
+                const tasks = res.data.items
+                const action = setTasksAC(tasks, todolistId)
+                dispatch(action)
+            })
+    }
 }
 
-export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch) => {
-    todolistsAPI.createTask(todolistId, title)
-        .then(res => {
-            const action = removeTaskAC(title, todolistId)
-            dispatch(action)
-        })
+export const removeTaskTC = (id: string, todolistId: string) => {
+    return (dispatch: Dispatch) => {
+        todolistsAPI.deleteTask(todolistId, id)
+            .then(res => {
+                const action = removeTaskAC(id, todolistId)
+                dispatch(action)
+            })
+    }
+}
+
+export const addTaskTC = (title: string, todolistId: string) => {
+    return (dispatch: Dispatch) => {
+        todolistsAPI.createTask(todolistId, title)
+            .then(res => {
+                const task = res.data.data.item
+                const action = addTaskAC(task)
+                dispatch(action)
+            })
+    }
 }
 
 export const updateTaskStatusTC = (taskId: string, todolistId: string, status: TaskStatuses) => {
@@ -154,16 +171,5 @@ export const updateTaskStatusTC = (taskId: string, todolistId: string, status: T
                 dispatch(action)
             })
         }
-    }
-}
-
-export const fetchTasksTC = (todolistId: string) => {
-    return (dispatch: Dispatch) => {
-        todolistsAPI.getTasks(todolistId)
-            .then((res) => {
-                const tasks = res.data.items
-                const action = setTasksAC(tasks, todolistId)
-                dispatch(action)
-            })
     }
 }
