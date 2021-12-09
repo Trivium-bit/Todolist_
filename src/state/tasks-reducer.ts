@@ -115,18 +115,6 @@ export const changeTaskTitleAC = (id: string, title: string, todolistId: string)
 export const setTasksAC = (tasks: Array<TaskType>, todolistId: string): SetTasksActionType => {
     return { type: 'SET-TASKS', tasks, todolistId }
 }
-
-export const fetchTasksTC = (todolistId: string) => {
-    return (dispatch: Dispatch) => {
-        todolistsAPI.getTasks(todolistId)
-            .then((res) => {
-                const tasks = res.data.items
-                const action = setTasksAC(tasks, todolistId)
-                dispatch(action)
-            })
-    }
-}
-
 export const removeTaskTC = (id: string, todolistId: string) => {
     return (dispatch: Dispatch) => {
         todolistsAPI.deleteTask(todolistId, id)
@@ -137,15 +125,13 @@ export const removeTaskTC = (id: string, todolistId: string) => {
     }
 }
 
-export const addTaskTC = (title: string, todolistId: string) => {
-    return (dispatch: Dispatch) => {
-        todolistsAPI.createTask(todolistId, title)
-            .then(res => {
-                const task = res.data.data.item
-                const action = addTaskAC(task)
-                dispatch(action)
-            })
-    }
+export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch) => {
+    todolistsAPI.createTask(title, todolistId)
+        .then(res => {
+            const task = res.data.data.item
+            const action = addTaskAC(task)
+            dispatch(action)
+        })
 }
 
 export const updateTaskStatusTC = (taskId: string, todolistId: string, status: TaskStatuses) => {
@@ -171,5 +157,16 @@ export const updateTaskStatusTC = (taskId: string, todolistId: string, status: T
                 dispatch(action)
             })
         }
+    }
+}
+
+export const fetchTasksTC = (todolistId: string) => {
+    return (dispatch: Dispatch) => {
+        todolistsAPI.getTasks(todolistId)
+            .then((res) => {
+                const tasks = res.data.items
+                const action = setTasksAC(tasks, todolistId)
+                dispatch(action)
+            })
     }
 }
