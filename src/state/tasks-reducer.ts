@@ -111,10 +111,25 @@ export const changeTaskStatusAC = (id: string, status: TaskStatuses, todolistId:
 export const changeTaskTitleAC = (id: string, title: string, todolistId: string): ChangeTaskTitleActionType => {
     return { type: 'CHANGE-TASK-TITLE', id, title, todolistId }
 }
+
 //////////////////////////////////////////////////////
+
 export const setTasksAC = (tasks: Array<TaskType>, todolistId: string): SetTasksActionType => {
     return { type: 'SET-TASKS', tasks, todolistId }
 }
+
+
+export const fetchTasksTC = (todolistId: string) => {
+    return (dispatch: Dispatch) => {
+        todolistsAPI.getTasks(todolistId)
+            .then((res) => {
+                const tasks = res.data.items
+                const action = setTasksAC(tasks, todolistId)
+                dispatch(action)
+            })
+    }
+}
+
 export const removeTaskTC = (id: string, todolistId: string) => {
     return (dispatch: Dispatch) => {
         todolistsAPI.deleteTask(todolistId, id)
@@ -134,7 +149,7 @@ export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispa
         })
 }
 
-export const updateTaskStatusTC = (taskId: string, todolistId: string, status: TaskStatuses) => {
+export const updateTaskStatusTC = (taskId: string, status: TaskStatuses, todolistId: string) => {
     return (dispatch: Dispatch, getState: () => AppRootStateType) => {
         // так как мы обязаны на сервер отправить все св-ва, которые сервер ожидает, а не
         // только те, которые мы хотим обновить, соответственно нам нужно в этом месте взять таску
@@ -157,16 +172,5 @@ export const updateTaskStatusTC = (taskId: string, todolistId: string, status: T
                 dispatch(action)
             })
         }
-    }
-}
-
-export const fetchTasksTC = (todolistId: string) => {
-    return (dispatch: Dispatch) => {
-        todolistsAPI.getTasks(todolistId)
-            .then((res) => {
-                const tasks = res.data.items
-                const action = setTasksAC(tasks, todolistId)
-                dispatch(action)
-            })
     }
 }
