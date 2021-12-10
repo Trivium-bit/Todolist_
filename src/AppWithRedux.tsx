@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import {AppBar, IconButton, Typography, Button, Toolbar, Container, Grid, Paper} from '@material-ui/core';
-import { AddTodolistAC, ChangeTodolistTitleAC, RemoveTodolistAC, ChangeTodolistFilterAC, setTodolistsAC, fetchTodolistsTC, deleteTodolistTC, addTodolistTC, changeTodolistTitleTC} from './state/todolists-reducer';
-import { addTaskAC, removeTaskAC, changeTaskTitleAC, removeTaskTC, addTaskTC, updateTaskTC} from './state/tasks-reducer';
+import {ChangeTodolistFilterAC, fetchTodolistsTC, deleteTodolistTC, addTodolistTC, changeTodolistTitleTC} from './state/todolists-reducer';
+import { addTaskTC, updateTaskTC, removeTaskTC} from './state/tasks-reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { TaskType, TaskStatuses, TodolistDomainType, FilterValuesType} from './api/todolist-api';
 import {Todolist} from './TodoList'
