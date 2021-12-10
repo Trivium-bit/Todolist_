@@ -1,5 +1,4 @@
 import { TodolistType, FilterValuesType, TodolistDomainType, todolistsAPI} from './../api/todolist-api'
-import { v1 } from 'uuid';
 import { Dispatch } from 'redux'
 
 export type RemoveTodolistActionType = {
@@ -55,9 +54,8 @@ export const todolistsReducer = (todolists: Array<TodolistDomainType> = initialS
             const todolist = todolists.find(tl => tl.id === action.id)
             if (todolist) {
                 todolist.filter = action.filter
-                return [...todolists]
             }
-            return todolists
+            return [...todolists]
         }
         case 'SET-TODOLISTS': {
             return action.todolists.map(tl => ({

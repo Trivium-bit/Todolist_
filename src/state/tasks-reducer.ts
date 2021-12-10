@@ -1,5 +1,4 @@
 import { TasksStateType } from '../AppWithRedux'
-import { v1 } from 'uuid';
 import { AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType } from './todolists-reducer'
 import { TaskType, TaskStatuses, TaskPriorities } from './../api/todolist-api'
 import { Dispatch } from 'redux'
@@ -22,12 +21,7 @@ export type UpdateTaskActionType = {
     model: UpdateDomainTaskModelType,
     todolistId: string
 }
-export type ChangeTaskTitleActionType = {
-    type: 'CHANGE-TASK-TITLE',
-    taskId: string,
-    todolistId: string
-    title: string
-}
+
 ////////////////////////////////////////////////////////////////////
 
 export type UpdateDomainTaskModelType = {
@@ -48,7 +42,6 @@ export type SetTasksActionType = {
 type ActionsType = RemoveTaskActionType |
     AddTaskActionType |
     UpdateTaskActionType |
-    ChangeTaskTitleActionType |
     AddTodolistActionType |
     RemoveTodolistActionType |
     SetTodolistsActionType |
@@ -75,12 +68,6 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
             let todolistTasks = state[action.todolistId];
             state[action.todolistId] = todolistTasks.map(t =>
                 t.id === action.taskId ? { ...t, ...action.model} : t);
-            return ({ ...state });
-        }
-        case 'CHANGE-TASK-TITLE': {
-            let todolistTasks = state[action.todolistId];
-            state[action.todolistId] = todolistTasks
-                .map(t => t.id === action.taskId ? { ...t, title: action.title } : t);
             return ({ ...state });
         }
         case 'ADD-TODOLIST': {
@@ -116,9 +103,9 @@ export const addTaskAC = (task: TaskType): AddTaskActionType => {
 export const updateTaskAC = (taskId: string, model: UpdateDomainTaskModelType, todolistId: string): UpdateTaskActionType => {
     return { type: 'UPDATE-TASK', taskId, model, todolistId }
 }
-export const changeTaskTitleAC = (taskId: string, title: string, todolistId: string): ChangeTaskTitleActionType => {
+/* export const changeTaskTitleAC = (taskId: string, title: string, todolistId: string): ChangeTaskTitleActionType => {
     return { type: 'CHANGE-TASK-TITLE', taskId, title, todolistId }
-}
+} */
 
 //////////////////////////////////////////////////////
 
