@@ -1,5 +1,4 @@
 import { TodolistType, FilterValuesType, TodolistDomainType, todolistsAPI} from './../api/todolist-api'
-import { v1 } from 'uuid';
 import { Dispatch } from 'redux'
 
 export type RemoveTodolistActionType = {
