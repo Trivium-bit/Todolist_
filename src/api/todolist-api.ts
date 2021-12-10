@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {UpdateDomainTaskModelType} from './../state/tasks-reducer'
 
 export type FilterValuesType = "all" | "active" | "completed"
 
@@ -94,7 +95,7 @@ export const todolistsAPI = {
     createTask(todolistId: string, taskTitle: string) {
         return instance.post<ResponseType<{item: TaskType}>>(`todo-lists/${todolistId}/tasks`, { title: taskTitle });
     },
-    updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType) {
-        return instance.put<UpdateTasksResponse>(`todo-lists/${todolistId}/tasks/${taskId}`, model);
+    updateTask(todolistId: string, taskId: string, apiModel: UpdateDomainTaskModelType) {
+        return instance.put<UpdateTasksResponse>(`todo-lists/${todolistId}/tasks/${taskId}`, apiModel);
     },
 }

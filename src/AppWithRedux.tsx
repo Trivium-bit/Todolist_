@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import {AppBar, IconButton, Typography, Button, Toolbar, Container, Grid, Paper} from '@material-ui/core';
 import { AddTodolistAC, ChangeTodolistTitleAC, RemoveTodolistAC, ChangeTodolistFilterAC, setTodolistsAC, fetchTodolistsTC, deleteTodolistTC, addTodolistTC, changeTodolistTitleTC} from './state/todolists-reducer';
-import { addTaskAC, removeTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskTC, addTaskTC, updateTaskStatusTC, changeTaskTitleTC } from './state/tasks-reducer';
+import { addTaskAC, removeTaskAC, changeTaskTitleAC, removeTaskTC, addTaskTC, updateTaskTC} from './state/tasks-reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { TaskType, TaskStatuses, TodolistDomainType, FilterValuesType} from './api/todolist-api';
 import {Todolist} from './TodoList'
@@ -40,12 +40,12 @@ export function AppWithRedux() {
   },[]);
 
   const changeStatus = useCallback(function(id: string, status: TaskStatuses, todolistId: string) {
-    const thunk = updateTaskStatusTC(id, status, todolistId);
+    const thunk = updateTaskTC(id, {status}, todolistId);
     dispatch(thunk);
   },[]);
 
-  const changeTaskTitle = useCallback(function(taskId: string, title: string, todolistId: string) {
-    const thunk = changeTaskTitleTC(taskId, title, todolistId);
+  const changeTaskTitle = useCallback(function(taskId: string, newTitle: string, todolistId: string) {
+    const thunk = updateTaskTC(taskId, {title: newTitle}, todolistId);
     dispatch(thunk);
   },[]);
 
