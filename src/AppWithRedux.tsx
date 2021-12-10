@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import {AppBar, IconButton, Typography, Button, Toolbar, Container, Grid, Paper} from '@material-ui/core';
-import { AddTodolistAC, ChangeTodolistTitleAC, RemoveTodolistAC, ChangeTodolistFilterAC, setTodolistsAC, fetchTodolistsTC, deleteTodolistTC, addTodolistTC} from './state/todolists-reducer';
+import { AddTodolistAC, ChangeTodolistTitleAC, RemoveTodolistAC, ChangeTodolistFilterAC, setTodolistsAC, fetchTodolistsTC, deleteTodolistTC, addTodolistTC, changeTodolistTitleTC} from './state/todolists-reducer';
 import { addTaskAC, removeTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskTC, addTaskTC, updateTaskStatusTC } from './state/tasks-reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { TaskType, TaskStatuses, TodolistDomainType, FilterValuesType} from './api/todolist-api';
@@ -55,9 +55,9 @@ export function AppWithRedux() {
   },[]); 
   
 
-  const changeTodolistTitle = useCallback(function(todolistId: string, newTitle: string) {
-    const action = ChangeTodolistTitleAC(todolistId, newTitle);
-    dispatch(action);
+  const changeTodolistTitle = useCallback(function(todolistId: string, title: string) {
+    const thunk = changeTodolistTitleTC(todolistId, title);
+    dispatch(thunk);
     },[]);
 
   const addTodolist = useCallback((title: string) => {
