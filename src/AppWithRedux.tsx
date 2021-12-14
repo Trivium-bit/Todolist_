@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import {AppBar, IconButton, Typography, Button, Toolbar, Container, Grid, Paper} from '@material-ui/core';
-import {ChangeTodolistFilterAC, fetchTodolistsTC, deleteTodolistTC, addTodolistTC, changeTodolistTitleTC} from './state/todolists-reducer';
+import {changeTodolistFilterAC, fetchTodolistsTC, deleteTodolistTC, addTodolistTC, changeTodolistTitleTC} from './state/todolists-reducer';
 import { addTaskTC, updateTaskTC, removeTaskTC} from './state/tasks-reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { TaskType, TaskStatuses, TodolistDomainType, FilterValuesType} from './api/todolist-api';
@@ -35,7 +35,7 @@ export function AppWithRedux() {
   },[]);
 
   const changeFilter = useCallback(function(value: FilterValuesType, todolistId: string) {
-    const action = ChangeTodolistFilterAC(todolistId, value);
+    const action = changeTodolistFilterAC(todolistId, value);
     dispatch(action);
   },[]);
 
