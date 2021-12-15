@@ -9,44 +9,26 @@ const initialState: TasksStateType = {}
 
 export const tasksReducer = (state: TasksStateType = initialState, action: ActionsType): TasksStateType => {
     switch (action.type) {
-        case 'REMOVE-TASK': {
-            let copyState = { ...state }
-            copyState[action.todolistId] = copyState[action.todolistId].filter(task => task.id !== action.taskId)
-            return copyState
-        }
-        case 'ADD-TASK': {
-            const stateCopy = { ...state }
-            const tasks = stateCopy[action.task.todoListId]
-            const newTasks = [action.task, ...tasks]
-            stateCopy[action.task.todoListId] = newTasks
-            return stateCopy
-        }
-        case 'UPDATE-TASK': {
-            let todolistTasks = state[action.todolistId];
-            state[action.todolistId] = todolistTasks.map(t =>
-                t.id === action.taskId ? { ...t, ...action.model } : t);
-            return ({ ...state });
-        }
-        case 'ADD-TODOLIST': {
+        case 'REMOVE-TASK':
+            return { ...state, [action.todolistId]: state[action.todolistId].filter(task => task.id !== action.taskId) }
+        case 'ADD-TASK':
+            return { ...state, [action.task.todoListId]: [action.task, ...state[action.task.todoListId]] }
+        case 'UPDATE-TASK':
+            return { ...state, [action.todolistId]: state[action.todolistId].map(t => t.id === action.taskId ? { ...t, ...action.model } : t) }
+        case 'ADD-TODOLIST':
             return { ...state, [action.todolist.id]: [] }
-        }
-        case 'REMOVE-TODOLIST': {
+        case 'REMOVE-TODOLIST':
             let copyState = { ...state }
             delete copyState[action.id]
             return copyState
-        }
-        case 'SET-TODOLISTS': {
+        case 'SET-TODOLISTS':
             const stateCopy = { ...state }
             action.todolists.forEach((tl) => {
                 stateCopy[tl.id] = []
             })
             return stateCopy;
-        }
-        case 'SET-TASKS': {
-            const stateCopy = { ...state }
-            stateCopy[action.todolistId] = action.tasks
-            return stateCopy
-        }
+        case 'SET-TASKS':
+            return { ...state, [action.todolistId]: action.tasks }
         default:
             return state
     }
@@ -59,7 +41,7 @@ export const updateTaskAC = (taskId: string, model: UpdateDomainTaskModelType, t
 export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) => ({ type: 'SET-TASKS', tasks, todolistId } as const)
 
 // thunks
-export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
+export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
     todolistsAPI.getTasks(todolistId)
         .then((res) => {
             const tasks = res.data.items
@@ -67,14 +49,14 @@ export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
             dispatch(action)
         })
 }
-export const removeTaskTC = (id: string, todolistId: string) => (dispatch: Dispatch) => {
+export const removeTaskTC = (id: string, todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
     todolistsAPI.deleteTask(todolistId, id)
         .then(res => {
             const action = removeTaskAC(id, todolistId)
             dispatch(action)
         })
 }
-export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch) => {
+export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
     todolistsAPI.createTask(title, todolistId)
         .then(res => {
             const task = res.data.data.item
@@ -82,7 +64,7 @@ export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispa
             dispatch(action)
         })
 }
-export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
+export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string) => (dispatch: Dispatch<ActionsType>, getState: () => AppRootStateType) => {
     // так как мы обязаны на сервер отправить все св-ва, которые сервер ожидает, а не
     // только те, которые мы хотим обновить, соответственно нам нужно в этом месте взять таску
     // целиком  чтобы у неё отобрать остальные св-ва

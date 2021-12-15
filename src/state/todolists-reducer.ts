@@ -3,33 +3,18 @@ import { Dispatch } from 'redux'
 
 const initialState: Array<TodolistDomainType> = []
 
-export const todolistsReducer = (todolists: Array<TodolistDomainType> = initialState, action: ActionType): Array<TodolistDomainType> => {
+export const todolistsReducer = (todolists: Array<TodolistDomainType> = initialState, action: ActionsType): Array<TodolistDomainType> => {
     switch (action.type) {
         case 'REMOVE-TODOLIST':
             return todolists.filter(tl => tl.id !== action.id)
         case 'ADD-TODOLIST':
-            const newTodolist: TodolistDomainType = { ...action.todolist, filter: "all" }
-            return [newTodolist, ...todolists]
+            return [{ ...action.todolist, filter: "all" }, ...todolists]
         case 'CHANGE-TODOLIST-TITLE':
-            const todolist = todolists.find(tl => tl.id === action.id)
-            if (todolist) {
-                todolist.title = action.title;
-                return [...todolists]
-            }
-            return todolists
-        case 'CHANGE-TODOLIST-FILTER': {
-            const todolist = todolists.find(tl => tl.id === action.id)
-            if (todolist) {
-                todolist.filter = action.filter
-            }
-            return [...todolists]
-        }
-        case 'SET-TODOLISTS': {
-            return action.todolists.map(tl => ({
-                ...tl,
-                filter: 'all'
-            }))
-        }
+            return todolists.map(tl => tl.id === action.id ? { ...tl, title: action.title } : tl)
+        case 'CHANGE-TODOLIST-FILTER':
+            return todolists.map(tl => tl.id === action.id ? { ...tl, filter: action.filter } : tl)
+        case 'SET-TODOLISTS':
+            return action.todolists.map(tl => ({ ...tl, filter: 'all' }))
         default:
             return todolists;
     }
@@ -43,41 +28,41 @@ export const changeTodolistFilterAC = (todolistId: string, newFilter: FilterValu
 export const setTodolistsAC = (todolists: Array<TodolistType>) => ({ type: 'SET-TODOLISTS', todolists } as const)
 
 // thunks
-export const fetchTodolistsTC = () => (dispatch: Dispatch) => {
+export const fetchTodolistsTC = () => (dispatch: Dispatch<ActionsType>) => {
     todolistsAPI.getTodolists()
         .then((res) => {
             dispatch(setTodolistsAC(res.data))
         })
 }
-export const deleteTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
+export const deleteTodolistTC = (todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
     todolistsAPI.deleteTodolist(todolistId)
         .then((res) => {
             const action = removeTodolistAC(todolistId)
             dispatch(action)
         })
 }
-export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
-        todolistsAPI.createTodolist(title)
-            .then((res) => {
-                const todolist = res.data.data.item
-                const action = addTodolistAC(todolist)
-                dispatch(action)
-            })
-    }
-export const changeTodolistTitleTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
-        todolistsAPI.updateTodolist(todolistId, title)
-            .then((res) => {
-                const action = changeTodolistTitleAC(todolistId, title)
-                dispatch(action)
-            })
-    }
-    
+export const addTodolistTC = (title: string) => (dispatch: Dispatch<ActionsType>) => {
+    todolistsAPI.createTodolist(title)
+        .then((res) => {
+            const todolist = res.data.data.item
+            const action = addTodolistAC(todolist)
+            dispatch(action)
+        })
+}
+export const changeTodolistTitleTC = (todolistId: string, title: string) => (dispatch: Dispatch<ActionsType>) => {
+    todolistsAPI.updateTodolist(todolistId, title)
+        .then((res) => {
+            const action = changeTodolistTitleAC(todolistId, title)
+            dispatch(action)
+        })
+}
+
 // types
 export type AddTodolistActionType = ReturnType<typeof addTodolistAC>
 export type RemoveTodolistActionType = ReturnType<typeof removeTodolistAC>
 export type SetTodolistsActionType = ReturnType<typeof setTodolistsAC>
 
-type ActionType =
+type ActionsType =
     | RemoveTodolistActionType
     | AddTodolistActionType
     | ReturnType<typeof changeTodolistTitleAC>
