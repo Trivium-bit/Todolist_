@@ -41,7 +41,7 @@ export const updateTaskAC = (taskId: string, model: UpdateDomainTaskModelType, t
 export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) => ({ type: 'SET-TASKS', tasks, todolistId } as const)
 
 // thunks
-export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
+export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
     todolistsAPI.getTasks(todolistId)
         .then((res) => {
             const tasks = res.data.items
@@ -49,14 +49,14 @@ export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
             dispatch(action)
         })
 }
-export const removeTaskTC = (id: string, todolistId: string) => (dispatch: Dispatch) => {
+export const removeTaskTC = (id: string, todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
     todolistsAPI.deleteTask(todolistId, id)
         .then(res => {
             const action = removeTaskAC(id, todolistId)
             dispatch(action)
         })
 }
-export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch) => {
+export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
     todolistsAPI.createTask(title, todolistId)
         .then(res => {
             const task = res.data.data.item
@@ -64,7 +64,7 @@ export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispa
             dispatch(action)
         })
 }
-export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
+export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string) => (dispatch: Dispatch<ActionsType>, getState: () => AppRootStateType) => {
     // так как мы обязаны на сервер отправить все св-ва, которые сервер ожидает, а не
     // только те, которые мы хотим обновить, соответственно нам нужно в этом месте взять таску
     // целиком  чтобы у неё отобрать остальные св-ва
