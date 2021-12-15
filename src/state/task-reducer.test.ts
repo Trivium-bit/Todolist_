@@ -1,5 +1,5 @@
 import {tasksReducer, removeTaskAC, addTaskAC, updateTaskAC, setTasksAC} from './tasks-reducer';
-import {AddTodolistAC, RemoveTodolistAC, setTodolistsAC} from './todolists-reducer';
+import {addTodolistAC, removeTodolistAC, setTodolistsAC} from './todolists-reducer';
 import {TaskStatuses,TaskPriorities} from './../api/todolist-api';
 import { TasksStateType } from '../AppWithRedux';
 
@@ -67,7 +67,7 @@ test('correct task should change its name', () => {
 
 test('new array should be added when new todolist is added', () => {
    
-    const action = AddTodolistAC({
+    const action = addTodolistAC({
         id: "blabla",title: "NEW YEAR!", order: 0, addedDate: ""});
 
     const endState = tasksReducer(startState, action)
@@ -83,7 +83,7 @@ test('new array should be added when new todolist is added', () => {
 
 test('property with todolistId should be deleted', () => {
    
-    const action = RemoveTodolistAC("todolistId2");
+    const action = removeTodolistAC("todolistId2");
     const endState = tasksReducer(startState, action)
     const keys = Object.keys(endState);
     expect(keys.length).toBe(1);
