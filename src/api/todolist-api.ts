@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {UpdateDomainTaskModelType} from './../state/tasks-reducer'
 
 const settings = {
     withCredentials: true,
@@ -33,7 +32,7 @@ export const todolistsAPI = {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`);
     },
     createTask(todolistId: string, taskTitle: string) {
-        return instance.post<ResponseType<{item: TaskType}>>(`todo-lists/${todolistId}/tasks`, { title: taskTitle });
+        return instance.post<ResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks`, { title: taskTitle });
     },
     updateTask(todolistId: string, taskId: string, apiModel: UpdateDomainTaskModelType) {
         return instance.put<UpdateTasksResponse>(`todo-lists/${todolistId}/tasks/${taskId}`, apiModel);
@@ -41,6 +40,11 @@ export const todolistsAPI = {
 }
 
 // types
+
+export type TasksStateType = {
+    [key: string]: Array<TaskType>
+}
+
 export type FilterValuesType = "all" | "active" | "completed"
 export type TodolistType = {
     id: string
@@ -48,7 +52,7 @@ export type TodolistType = {
     order: number
     title: string
 }
-export type TodolistDomainType = TodolistType & {filter: FilterValuesType};
+export type TodolistDomainType = TodolistType & { filter: FilterValuesType };
 export enum TaskStatuses {
     New = 0,
     InProgress = 1,
@@ -86,6 +90,14 @@ export type UpdateTaskModelType = {
     priority: TaskPriorities
     startDate: string
     deadline: string
+}
+export type UpdateDomainTaskModelType = {
+    title?: string
+    description?: string
+    status?: TaskStatuses
+    priority?: TaskPriorities
+    startDate?: string
+    deadline?: string
 }
 type GetTasksResponse = {
     error: string | null

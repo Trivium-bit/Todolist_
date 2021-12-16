@@ -1,6 +1,6 @@
-import { todolistsReducer, changeTodolistFilterAC} from './todolists-reducer';
+import { todolistsReducer, changeTodolistFilterAC } from './todolists-reducer';
 import { v1 } from 'uuid';
-import { TodolistDomainType, FilterValuesType, TodolistType } from './../api/todolist-api';
+import { TodolistDomainType, FilterValuesType, TodolistType } from './../../api/todolist-api';
 import { removeTodolistAC, addTodolistAC, changeTodolistTitleAC, setTodolistsAC } from './todolists-reducer';
 
 let todolistId1: string;
@@ -61,4 +61,4 @@ test('todolists should be set to the state', () => {
     const action = setTodolistsAC(startState)
     const endState = todolistsReducer([], action);
     expect(endState.length).toBe(2);
-    });
+});
