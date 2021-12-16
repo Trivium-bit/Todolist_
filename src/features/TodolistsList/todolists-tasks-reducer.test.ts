@@ -1,5 +1,5 @@
-import { TaskType, TodolistDomainType, TodolistType } from './../api/todolist-api';
-import { TasksStateType } from './../AppWithRedux'
+import { TodolistDomainType, TodolistType } from './../../api/todolist-api';
+import { TasksStateType } from './../../api/todolist-api'
 import { tasksReducer } from "./tasks-reducer";
 import { todolistsReducer, addTodolistAC } from "./todolists-reducer";
 
