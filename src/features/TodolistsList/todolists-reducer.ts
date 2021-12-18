@@ -3,20 +3,20 @@ import { Dispatch } from 'redux'
 
 const initialState: Array<TodolistDomainType> = []
 
-export const todolistsReducer = (todolists: Array<TodolistDomainType> = initialState, action: ActionsType): Array<TodolistDomainType> => {
+export const todolistsReducer = (state: Array<TodolistDomainType> = initialState, action: ActionsType): Array<TodolistDomainType> => {
     switch (action.type) {
         case 'REMOVE-TODOLIST':
-            return todolists.filter(tl => tl.id !== action.id)
+            return state.filter(tl => tl.id !== action.id)
         case 'ADD-TODOLIST':
-            return [{ ...action.todolist, filter: "all" }, ...todolists]
+            return [{ ...action.todolist, filter: "all" }, ...state]
         case 'CHANGE-TODOLIST-TITLE':
-            return todolists.map(tl => tl.id === action.id ? { ...tl, title: action.title } : tl)
+            return state.map(tl => tl.id === action.id ? { ...tl, title: action.title } : tl)
         case 'CHANGE-TODOLIST-FILTER':
-            return todolists.map(tl => tl.id === action.id ? { ...tl, filter: action.filter } : tl)
+            return state.map(tl => tl.id === action.id ? { ...tl, filter: action.filter } : tl)
         case 'SET-TODOLISTS':
             return action.todolists.map(tl => ({ ...tl, filter: 'all' }))
         default:
-            return todolists;
+            return state;
     }
 }
 
