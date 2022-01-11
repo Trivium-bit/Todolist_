@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { AppBar, IconButton, Typography, Button, Toolbar, Container, Grid, Paper } from '@material-ui/core';
-import TodolistList from '../features/TodolistsList/TodolistList'
+import TodolistsList from '../features/TodolistsList/TodolistsList'
 import { Menu } from "@material-ui/icons";
 
 export function App() {
@@ -19,7 +19,7 @@ export function App() {
         </Toolbar>
       </AppBar>
       <Container fixed>
-        <TodolistList />
+        <TodolistsList />
       </Container>
     </div>
   );

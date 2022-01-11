@@ -42,6 +42,7 @@ export const deleteTodolistTC = (todolistId: string) => (dispatch: Dispatch<Acti
         })
 }
 export const addTodolistTC = (title: string) => (dispatch: Dispatch<ActionsType>) => {
+    debugger
     todolistsAPI.createTodolist(title)
         .then((res) => {
             const todolist = res.data.data.item

@@ -1,22 +1,23 @@
 import React, { useEffect, useCallback } from 'react';
 import { Grid, Paper } from '@material-ui/core';
-import { changeTodolistFilterAC, fetchTodolistsTC, deleteTodolistTC, addTodolistTC, changeTodolistTitleTC } from '../TodolistsList/todolists-reducer';
-import { addTaskTC, updateTaskTC, removeTaskTC } from '../TodolistsList/tasks-reducer';
+import { changeTodolistFilterAC, fetchTodolistsTC, deleteTodolistTC, addTodolistTC, changeTodolistTitleTC } from './todolists-reducer';
+import { addTaskTC, updateTaskTC, removeTaskTC } from './tasks-reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { TaskStatuses, TodolistDomainType, FilterValuesType } from '../../api/todolist-api';
-import { Todolist } from '../../features/TodolistsList/Todolist/TodoList'
+import { Todolist } from './Todolist/TodoList'
 import { AddItemForm } from '../../components/AddItemForm/AddItemForm';
 import { AppRootStateType } from '../../app/store'
 import { TasksStateType } from '../../api/todolist-api'
 
-const TodolistList: React.FC = () => {
+const TodolistsList: React.FC = () => {
 
   const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists);
   const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchTodolistsTC)
+    const thunk = fetchTodolistsTC();
+    dispatch(thunk);
   })
 
   const addTask = useCallback(function (title: string, todolistId: string) {
@@ -55,7 +56,6 @@ const TodolistList: React.FC = () => {
   }, []);
 
   const addTodolist = useCallback((title: string) => {
-    debugger
     const thunk = addTodolistTC(title);
     dispatch(thunk);
   }, [dispatch]);
@@ -101,4 +101,4 @@ const TodolistList: React.FC = () => {
   </>
 }
 
-export default TodolistList
+export default TodolistsList
