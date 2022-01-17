@@ -18,7 +18,7 @@ const TodolistsList: React.FC = () => {
   useEffect(() => {
     const thunk = fetchTodolistsTC();
     dispatch(thunk);
-  })
+  }, [])
 
   const addTask = useCallback(function (title: string, todolistId: string) {
     const thunk = addTaskTC(title, todolistId);
