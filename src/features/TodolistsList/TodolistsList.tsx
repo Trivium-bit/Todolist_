@@ -14,7 +14,8 @@ import {addTaskTC, removeTaskTC, TasksStateType, updateTaskTC} from './tasks-red
 import {TaskStatuses} from '../../api/todolists-api'
 import {Grid, Paper} from '@material-ui/core'
 import {AddItemForm} from '../../components/AddItemForm/AddItemForm'
-import {Todolist} from './Todolist/Todolist'
+import { Todolist } from './Todolist/Todolist'
+
 
 export const TodolistsList: React.FC = () => {
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
