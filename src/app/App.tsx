@@ -1,28 +1,29 @@
-import React, { useEffect, useCallback } from 'react';
-import { AppBar, IconButton, Typography, Button, Toolbar, Container, Grid, Paper } from '@material-ui/core';
-import TodolistsList from '../features/TodolistsList/TodolistsList'
-import { Menu } from "@material-ui/icons";
+import React from 'react'
+import './App.css'
+import {AppBar, Button, Container, IconButton, Toolbar, Typography} from '@material-ui/core'
+import {Menu} from '@material-ui/icons'
+import {TodolistsList} from '../features/TodolistsList/TodolistsList'
 
-export function App() {
-  return (
-    <div className="App">
-      <AppBar position="static">
+function App() {
 
-        <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <Menu />
-          </IconButton>
-          <Typography variant="h6">
-            News
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-      <Container fixed>
-        <TodolistsList />
-      </Container>
-    </div>
-  );
+    return (
+        <div className="App">
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton edge="start" color="inherit" aria-label="menu">
+                        <Menu/>
+                    </IconButton>
+                    <Typography variant="h6">
+                        News
+                    </Typography>
+                    <Button color="inherit">Login</Button>
+                </Toolbar>
+            </AppBar>
+            <Container fixed>
+                <TodolistsList/>
+            </Container>
+        </div>
+    )
 }
 
-export default App;
+export default App
