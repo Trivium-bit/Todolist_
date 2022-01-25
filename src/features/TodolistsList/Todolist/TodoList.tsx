@@ -9,6 +9,7 @@ import { TaskStatuses, TaskType } from '../../../api/todolists-api'
 import { FilterValuesType } from '../todolists-reducer'
 import { useDispatch } from 'react-redux'
 import { fetchTasksTC } from '../tasks-reducer'
+import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
 
 type PropsType = {
     id: string
@@ -62,7 +63,7 @@ export const Todolist = React.memo(function (props: PropsType) {
     return <div>
         <h3><EditableSpan value={props.title} onChange={changeTodolistTitle} />
             <IconButton onClick={removeTodolist}>
-                <Delete />
+                <PlaylistRemoveIcon />
             </IconButton>
         </h3>
         <AddItemForm addItem={addTask} />
@@ -78,15 +79,18 @@ export const Todolist = React.memo(function (props: PropsType) {
         <div style={{ paddingTop: '10px' }}>
             <Button variant={props.filter === 'all' ? 'outlined' : 'text'}
                 onClick={onAllClickHandler}
-                color={'inherit'}>All
+                color={'inherit'}
+                size="small">All
             </Button>
             <Button variant={props.filter === 'active' ? 'outlined' : 'text'}
                 onClick={onActiveClickHandler}
-                color={'secondary'}>Active
+                color={'primary'}
+                size="small">Active
             </Button>
             <Button variant={props.filter === 'completed' ? 'outlined' : 'text'}
                 onClick={onCompletedClickHandler}
-                color={'success'}>Completed
+                color={'secondary'}
+                size="small">Completed
             </Button>
         </div>
     </div>
