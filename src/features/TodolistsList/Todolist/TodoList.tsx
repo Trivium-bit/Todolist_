@@ -1,13 +1,15 @@
-import React, {useCallback, useEffect} from 'react'
-import {AddItemForm} from '../../../components/AddItemForm/AddItemForm'
-import {EditableSpan} from '../../../components/EditableSpan/EditableSpan'
-import {Button, IconButton} from '@material-ui/core'
-import {Delete} from '@material-ui/icons'
-import {Task} from './Task/Task'
-import {TaskStatuses, TaskType} from '../../../api/todolists-api'
-import {FilterValuesType} from '../todolists-reducer'
-import {useDispatch} from 'react-redux'
-import {fetchTasksTC} from '../tasks-reducer'
+import React, { useCallback, useEffect } from 'react'
+import { AddItemForm } from '../../../components/AddItemForm/AddItemForm'
+import { EditableSpan } from '../../../components/EditableSpan/EditableSpan'
+import { IconButton } from '@material-ui/core'
+import Button from '@mui/material/Button';
+import { Delete } from '@material-ui/icons'
+import { Task } from './Task/Task'
+import { TaskStatuses, TaskType } from '../../../api/todolists-api'
+import { FilterValuesType } from '../todolists-reducer'
+import { useDispatch } from 'react-redux'
+import { fetchTasksTC } from '../tasks-reducer'
+import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
 
 type PropsType = {
     id: string
@@ -59,34 +61,36 @@ export const Todolist = React.memo(function (props: PropsType) {
     }
 
     return <div>
-        <h3><EditableSpan value={props.title} onChange={changeTodolistTitle}/>
+        <h3><EditableSpan value={props.title} onChange={changeTodolistTitle} />
             <IconButton onClick={removeTodolist}>
-                <Delete/>
+                <PlaylistRemoveIcon />
             </IconButton>
         </h3>
-        <AddItemForm addItem={addTask}/>
+        <AddItemForm addItem={addTask} />
         <div>
             {
                 tasksForTodolist.map(t => <Task key={t.id} task={t} todolistId={props.id}
-                                                removeTask={props.removeTask}
-                                                changeTaskTitle={props.changeTaskTitle}
-                                                changeTaskStatus={props.changeTaskStatus}
+                    removeTask={props.removeTask}
+                    changeTaskTitle={props.changeTaskTitle}
+                    changeTaskStatus={props.changeTaskStatus}
                 />)
             }
         </div>
-        <div style={{paddingTop: '10px'}}>
+        <div style={{ paddingTop: '10px' }}>
             <Button variant={props.filter === 'all' ? 'outlined' : 'text'}
-                    onClick={onAllClickHandler}
-                    color={'default'}
-            >All
+                onClick={onAllClickHandler}
+                color={'inherit'}
+                size="small">All
             </Button>
             <Button variant={props.filter === 'active' ? 'outlined' : 'text'}
-                    onClick={onActiveClickHandler}
-                    color={'primary'}>Active
+                onClick={onActiveClickHandler}
+                color={'primary'}
+                size="small">Active
             </Button>
             <Button variant={props.filter === 'completed' ? 'outlined' : 'text'}
-                    onClick={onCompletedClickHandler}
-                    color={'secondary'}>Completed
+                onClick={onCompletedClickHandler}
+                color={'secondary'}
+                size="small">Completed
             </Button>
         </div>
     </div>
