@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import {AppBar, Container, IconButton, Toolbar, Typography} from '@material-ui/core'
+import {AppBar, Container, IconButton, Toolbar, Typography, LinearProgress} from '@material-ui/core'
 import {Menu} from '@material-ui/icons'
 import {TodolistsList} from '../features/TodolistsList/TodolistsList'
 import Button from '@mui/material/Button';
@@ -19,6 +19,7 @@ function App() {
                     </Typography>
                     <Button variant="contained" color="inherit">Login</Button>
                 </Toolbar>
+                <LinearProgress color="secondary" />
             </AppBar>
             <Container fixed>
                 <TodolistsList/>
