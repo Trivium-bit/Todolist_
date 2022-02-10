@@ -7,10 +7,11 @@ import Button from '@mui/material/Button';
 import { AppRootStateType } from './store';
 import { useDispatch, useSelector } from 'react-redux'
 import { ErrorSnackbar } from '../components/ErrorSnackbar/ErrorSnackbar'
+import { RequestStatusType } from './app-reducer'
 
 function App() {
 
-    const status = useSelector<AppRootStateType>(state => state.app.status)
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     
     return (
         <div className="App">
