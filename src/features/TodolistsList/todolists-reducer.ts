@@ -1,6 +1,7 @@
 import { todolistsAPI, TodolistType } from '../../api/todolists-api'
 import { Dispatch } from 'redux'
 import { setAppStatusAC, SetAppStatusActionType, RequestStatusType, setAppErrorAC, SetAppErrorActionType } from './../../app/app-reducer'
+import { handleServerAppError } from '../../utils/error-utils'
 
 const initialState: Array<TodolistDomainType> = []
 
@@ -66,7 +67,7 @@ export const removeTodolistTC = (todolistId: string) => {
     }
 }
 export const addTodolistTC = (title: string) => {
-    return (dispatch: Dispatch<ActionsType | SetAppErrorActionType | SetAppStatusActionType>) => {
+    return (dispatch: ThunkDispatch) => {
         dispatch(setAppStatusAC('loading'))
         todolistsAPI.createTodolist(title)
             .then((res) => {
@@ -74,13 +75,7 @@ export const addTodolistTC = (title: string) => {
                     dispatch(addTodolistAC(res.data.data.item))
                     dispatch(setAppStatusAC('succeeded'))
                 } else {
-                    if (res.data.messages.length) {
-                        dispatch(setAppErrorAC(res.data.messages[0]));
-                    }
-                    else {
-                        dispatch(setAppErrorAC('Some error occurred'));
-                    }
-                    dispatch(setAppStatusAC('failed'))
+                    handleServerAppError(res.data, dispatch)
                 }
             })
     }
@@ -110,6 +105,8 @@ type ActionsType =
     | SetTodolistsActionType
     | SetAppStatusActionType
     | ChangeTodolistEntityStatusActionType
+
+type ThunkDispatch = Dispatch<ActionsType | SetAppErrorActionType | SetAppStatusActionType>
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
 export type TodolistDomainType = TodolistType & {
