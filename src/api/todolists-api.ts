@@ -11,6 +11,13 @@ const instance = axios.create({
     ...settings
 })
 
+export const authAPI = {
+    login(data: LoginParamsType) {
+        const promise = instance.post<ResponseType<{iserId?: number}>>('auth/login', data);
+        return promise;
+    }
+}
+
 // api
 export const todolistsAPI = {
     getTodolists() {
@@ -18,7 +25,7 @@ export const todolistsAPI = {
         return promise;
     },
     createTodolist(title: string) {
-        const promise = instance.post<ResponseType<{ item: TodolistType }>>('todo-lists', {title: title});
+        const promise = instance.post<ResponseType<{ item: TodolistType }>>('todo-lists', { title: title });
         return promise;
     },
     deleteTodolist(id: string) {
@@ -26,7 +33,7 @@ export const todolistsAPI = {
         return promise;
     },
     updateTodolist(id: string, title: string) {
-        const promise = instance.put<ResponseType>(`todo-lists/${id}`, {title: title});
+        const promise = instance.put<ResponseType>(`todo-lists/${id}`, { title: title });
         return promise;
     },
     getTasks(todolistId: string) {
@@ -36,7 +43,7 @@ export const todolistsAPI = {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`);
     },
     createTask(todolistId: string, taskTitile: string) {
-        return instance.post<ResponseType<{ item: TaskType}>>(`todo-lists/${todolistId}/tasks`, {title: taskTitile});
+        return instance.post<ResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks`, { title: taskTitile });
     },
     updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType) {
         return instance.put<ResponseType<TaskType>>(`todo-lists/${todolistId}/tasks/${taskId}`, model);
@@ -44,6 +51,19 @@ export const todolistsAPI = {
 }
 
 // types
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
+}
+export type ResponseLoginType<D = {}> = {
+    resultCode: number
+    messages: Array<string>
+    data: D
+
+}
+
 export type TodolistType = {
     id: string
     title: string
