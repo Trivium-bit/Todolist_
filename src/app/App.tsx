@@ -14,9 +14,15 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 function App() {
     
+    useEffect(() => {
+        debugger
+        dispatch(initializeAppTC())
+    }, [])
+    
     const dispatch = useDispatch()
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     const initialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
 
     if (!initialized) {
         return <div
@@ -24,10 +30,6 @@ function App() {
         <CircularProgress color="secondary" />
         </div>
     }
-
-    useEffect(() => {
-        dispatch(initializeAppTC())
-    }, [])
 
     return (
         <BrowserRouter>

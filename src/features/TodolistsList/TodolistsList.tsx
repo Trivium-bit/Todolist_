@@ -23,6 +23,7 @@ export const TodolistsList: React.FC = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        debugger
         if (!isLoggedIn) {
             return;
         }
@@ -73,6 +74,7 @@ export const TodolistsList: React.FC = () => {
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
 
     if (!isLoggedIn) {
+        debugger
         return <Navigate to="/login"/>
     }
 

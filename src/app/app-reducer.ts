@@ -21,7 +21,7 @@ export type InitialStateType = {
 export const initialState = {
     status: 'loading' as RequestStatusType,
     error: null,
-    isInitialized: false
+    isInitialized: true
 
 }
 

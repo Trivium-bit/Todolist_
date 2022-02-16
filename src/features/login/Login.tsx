@@ -21,13 +21,6 @@ type FormikErrorType = {
 
 export const Login = () => {
 
-    const dispatch = useDispatch()
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
-
-    if(isLoggedIn) {
-        return <Navigate to="/"/>
-    }
-
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -47,7 +40,6 @@ export const Login = () => {
             } else if (values.password.length < 3) {
                 errors.password = 'Invalid password';
             }
-
             return errors;
         },
 
@@ -56,6 +48,15 @@ export const Login = () => {
             formik.resetForm()
         },
     });
+
+    const dispatch = useDispatch()
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+
+    if(isLoggedIn) {
+        return <Navigate to="/"/>
+    }
+
+
 
     return <Grid container justifyContent={'center'}>
         <Grid item justifyContent={'center'}>
