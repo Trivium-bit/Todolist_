@@ -1,20 +1,35 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './App.css'
-import { AppBar, Container, IconButton, Toolbar, Typography, LinearProgress } from '@material-ui/core'
+import { AppBar, Container, IconButton, Toolbar, Typography, LinearProgress, CircularProgress } from '@material-ui/core'
 import { Menu } from '@material-ui/icons'
 import { TodolistsList } from '../features/TodolistsList/TodolistsList'
 import Button from '@mui/material/Button';
 import { AppRootStateType } from './store';
 import { useDispatch, useSelector } from 'react-redux'
 import { ErrorSnackbar } from '../components/ErrorSnackbar/ErrorSnackbar'
-import { RequestStatusType } from './app-reducer'
+import { initializeAppTC, RequestStatusType } from './app-reducer'
 import { Login } from '../features/login/Login'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 
 function App() {
-
+    
+    useEffect(() => {
+        debugger
+        dispatch(initializeAppTC())
+    }, [])
+    
+    const dispatch = useDispatch()
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
+    const initialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+
+    if (!initialized) {
+        return <div
+            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+        <CircularProgress color="secondary" />
+        </div>
+    }
 
     return (
         <BrowserRouter>
