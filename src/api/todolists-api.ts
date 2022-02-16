@@ -13,12 +13,15 @@ const instance = axios.create({
 
 export const authAPI = {
     login(data: LoginParamsType) {
-        const promise = instance.post<ResponseType<{iserId?: number}>>('auth/login', data);
+        const promise = instance.post<ResponseType<{ iserId?: number }>>('auth/login', data);
+        return promise;
+    },
+    me() {
+        const promise = instance.get<ResponseType<{id: number, email:string, login: string}>>('auth/me');
         return promise;
     }
 }
 
-// api
 export const todolistsAPI = {
     getTodolists() {
         const promise = instance.get<TodolistType[]>('todo-lists');
