@@ -31,6 +31,10 @@ function App() {
         </div>
     }
 
+    const logoutHandler = useCallback(() => {
+        
+    }, [])
+
     return (
         <BrowserRouter>
             <div className="App">
@@ -43,7 +47,7 @@ function App() {
                         <Typography variant="h6">
                             News
                         </Typography>
-                        <Button variant="contained" color="inherit">Login</Button>
+                        {isLoggedIn && <Button variant="contained" color="inherit" onClick={logoutHandler}>Log out</Button>}
                     </Toolbar>
                     {status === 'loading' && <LinearProgress color="secondary" />}
                 </AppBar>

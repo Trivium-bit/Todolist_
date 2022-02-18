@@ -3,12 +3,9 @@ import { AddItemForm } from '../../../components/AddItemForm/AddItemForm'
 import { EditableSpan } from '../../../components/EditableSpan/EditableSpan'
 import { IconButton } from '@material-ui/core'
 import Button from '@mui/material/Button';
-import { Delete } from '@material-ui/icons'
 import { Task } from './Task/Task'
 import { TaskStatuses, TaskType } from '../../../api/todolists-api'
 import { FilterValuesType, TodolistDomainType } from '../todolists-reducer'
-import { useDispatch } from 'react-redux'
-import { fetchTasksTC } from '../tasks-reducer'
 import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
 import { RequestStatusType } from '../../../app/app-reducer';
 
@@ -23,17 +20,16 @@ type PropsType = {
     removeTodolist: (id: string) => void
     changeTodolistTitle: (id: string, newTitle: string) => void
     entityStatus: RequestStatusType
-
 }
 
 export const Todolist = React.memo(function (props: PropsType) {
     console.log('Todolist called')
 
-    const dispatch = useDispatch()
+   /*  const dispatch = useDispatch()
     useEffect(() => {
         const thunk = fetchTasksTC(props.todolist.id)
         dispatch(thunk)
-    }, [])
+    }, []) */
 
     const addTask = useCallback((title: string) => {
         props.addTask(title, props.todolist.id)
