@@ -52,8 +52,8 @@ export const Login = () => {
     const dispatch = useDispatch()
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
 
-    if(isLoggedIn) {
-        return <Navigate to="/"/>
+    if (isLoggedIn) {
+        return <Navigate to="/" />
     }
 
 
@@ -75,17 +75,17 @@ export const Login = () => {
                     <FormGroup>
                         <TextField label="Email" margin="normal" {...formik.getFieldProps('email')} />
                         {
-                        formik.touched.email &&    
-                        formik.errors.email
-                        ? <div style={{ color: 'red' }}>{formik.errors.email}</div>
-                        : null
+                            formik.touched.email &&
+                                formik.errors.email
+                                ? <div style={{ color: 'red' }}>{formik.errors.email}</div>
+                                : null
                         }
                         <TextField type="password" label="Password" margin="normal" {...formik.getFieldProps('password')} />
                         {
-                        formik.touched.password &&  
-                        formik.errors.password
-                        ? <div style={{ color: 'red' }}>{formik.errors.password}</div> 
-                        : null
+                            formik.touched.password &&
+                                formik.errors.password
+                                ? <div style={{ color: 'red' }}>{formik.errors.password}</div>
+                                : null
                         }
                         <FormControlLabel label={'Remember me'} control={<Checkbox name="rememberMe" checked={formik.values.rememberMe} onChange={formik.handleChange} />} />
                         <Button type={'submit'} variant={'contained'} color={'primary'}>

@@ -9,7 +9,6 @@ export type SetAppInitializedActionType = ReturnType<typeof setAppInitialized>;
 export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>;
 export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>;
 
-
 type ActionsType = SetAppInitializedActionType | SetAppStatusActionType | SetAppErrorActionType
 
 export type InitialStateType = {
@@ -38,12 +37,13 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
     }
 }
 
-export const initializeAppTC = () => (dispatch: Dispatch<SetIsLoggedInActionType>) => {
+export const initializeAppTC = () => (dispatch: Dispatch<SetIsLoggedInActionType | SetAppStatusActionType>) => {
     authAPI.me().then(res => {
-        debugger
         if (res.data.resultCode === 0) {
             dispatch(setIsLoggedInAC(true));
+            dispatch(setAppStatusAC('succeeded'))
         } else {
+            dispatch(setAppStatusAC('succeeded'))
         }
     })
 }

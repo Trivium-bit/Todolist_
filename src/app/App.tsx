@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import './App.css'
 import { AppBar, Container, IconButton, Toolbar, Typography, LinearProgress, CircularProgress } from '@material-ui/core'
 import { Menu } from '@material-ui/icons'
@@ -10,15 +10,19 @@ import { ErrorSnackbar } from '../components/ErrorSnackbar/ErrorSnackbar'
 import { initializeAppTC, RequestStatusType } from './app-reducer'
 import { Login } from '../features/login/Login'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { logoutTC } from '../features/login/auth-reducer'
 
 
 function App() {
     
     useEffect(() => {
-        debugger
         dispatch(initializeAppTC())
     }, [])
     
+    const logoutHandler = useCallback(() => {
+        dispatch(logoutTC())
+    }, [])
+
     const dispatch = useDispatch()
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     const initialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
@@ -43,7 +47,7 @@ function App() {
                         <Typography variant="h6">
                             News
                         </Typography>
-                        <Button variant="contained" color="inherit">Login</Button>
+                        {isLoggedIn && <Button variant="contained" color="inherit" onClick={logoutHandler}>Log out</Button>}
                     </Toolbar>
                     {status === 'loading' && <LinearProgress color="secondary" />}
                 </AppBar>
