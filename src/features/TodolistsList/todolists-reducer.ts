@@ -23,7 +23,7 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
             return state.map(tl => tl.id === action.id ? { ...tl, entityStatus: action.entityStatus } : tl)
         case 'CLEAR-DATA':
             return []
-            
+
         default:
             return state
     }

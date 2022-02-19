@@ -16,11 +16,15 @@ export const authAPI = {
         const promise = instance.post<ResponseType<{ iserId?: number }>>('auth/login', data);
         return promise;
     },
+    logout() {
+        const promise = instance.delete<ResponseType<{ iserId?: number }>>('auth/login');
+        return promise;
+    },
     me() {
         const promise = instance.get<ResponseType<{id: number, email:string, login: string}>>('auth/me');
         return promise;
     }
-}
+   }
 
 export const todolistsAPI = {
     getTodolists() {
